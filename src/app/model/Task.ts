@@ -4,10 +4,10 @@ export class Task {
   task: string;
   text: string;
   date: number;
-  folder?: string;
-  userID?: number;
+  folder: string;
+  userID: number;
 
-  constructor(id: number, task: string, text: string, date: number, folder?: string, userID?: number) {
+  constructor(id: number, task: string, text: string, date: number, folder: string,  userID: number) {
     this.id = id;
     this.task = task;
     this.text = text;

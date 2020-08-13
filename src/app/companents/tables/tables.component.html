@@ -1,1 +1,37 @@
-<p>tables works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <!-- Advanced Tables -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Advanced Tables
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+            <thead>
+            <tr>
+              <th>Заголовок</th>
+              <th>Text</th>
+              <th>Folder(s)</th>
+              <th>Date</th>
+              <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="odd gradeX" *ngFor="let t of tables">
+              <td>{{t.task | slice: 0: 10}}</td>
+              <td>{{t.text | slice: 0:20}}</td>
+              <td>{{t.folder}}</td>
+              <td class="center">{{t.date}}</td>
+              <td class="center">X</td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+    <!--End Advanced Tables -->
+  </div>
+</div>

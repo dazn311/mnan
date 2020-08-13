@@ -6,11 +6,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { TablesComponent } from './companents/tables/tables.component';
+import { CategoriesComponent } from './companents/categories/categories.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TablesComponent
+    TablesComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,
