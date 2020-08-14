@@ -1,0 +1,8 @@
+{
+  "/maps/*": {
+    "target": "http://zagotorvki.phplocal/api/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

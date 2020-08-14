@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col-md-12">
     <!-- Advanced Tables -->
@@ -18,14 +19,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="odd gradeX" *ngFor="let t of tables">
-              <td>{{t.task | slice: 0: 10}}</td>
-              <td>{{t.text | slice: 0:20}}</td>
-              <td>{{t.folder}}</td>
-              <td class="center">{{t.date}}</td>
-              <td class="center">X</td>
+            <div *ngIf="loading; else loadingBlock" >
+              <p>{{ LoadingMessage }}</p>
+            </div>
+            <ng-template #loadingBlock>
+            <tr  class="odd gradeX" *ngFor="let t of tables">
+              <td [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }">{{t.task | slice: 0: 10}}</td>
+              <td [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }">{{t.text | slice: 0:20}}</td>
+              <td [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }">{{t.folder}}</td>
+              <td class="center" [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }">{{t.date}}</td>
+              <td class="center" [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }">edit</td>
             </tr>
-
+            </ng-template>
             </tbody>
           </table>
         </div>

@@ -1,24 +1,54 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Task } from '../model/Task';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Task} from '../model/Task';
+import {Category} from '../model/Category';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataTablesService {
   tasks: Task[];
-  // tasks = [{'id': 3, 'task': 'my task', 'text': 'string', 'date': 4566454, 'folder': 'current',  'userID': 5}];
-  constructor(private http: HttpClient) { }
+  loadingTask: boolean = false;
+  taskByCategoriesList: Task[] = [];
+  taskSubject = new Subject<Task[]>();
 
- async getTables(){
-    await this.http.get<Task[]>('http://zagotorvki.phplocal/api/index.php')
+  constructor(private http: HttpClient) {
+  }
+
+  fillTables():void {
+    this.taskSubject.next(this.tasks);
+  }
+
+  fillTablesByCategory(category: string): void {
+    if (category === ''){
+      this.taskByCategoriesList = this.tasks;
+    } else {
+      this.taskByCategoriesList = this.tasks.filter( c =>  c.folder === category );
+    }
+    console.log('this.taskByCategoriesList', this.taskByCategoriesList );
+    this.taskSubject.next(this.taskByCategoriesList);
+
+  }
+
+  getTables(): Task[] {
+    this.loadingTask = true;
+    this.http.get<Task[]>('http://zagotorvki.phplocal/api/index.php')
       .subscribe(respons => {
-
-        this.tasks.concat(respons);
-        console.log('this.tasks 1: ',this.tasks);
+        this.tasks = respons;
+        this.loadingTask = false;
       });
-    console.log('this.tabs: ',this.tasks);
     return this.tasks;
+
+  }
+
+  getTablesByCategory(category: string): Task[] {
+    if (category === ''){
+      return this.tasks;
+    }
+    this.taskByCategoriesList = this.tasks.filter( c =>  c.folder === category );
+    console.log('this.taskByCategoriesList', this.taskByCategoriesList );
+    return this.taskByCategoriesList;
 
   }
 
