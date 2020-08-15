@@ -10,8 +10,8 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class TablesComponent implements OnInit {
   // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
-  private displayedColumns: string[] = ['tast', 'text', 'folder', 'date', 'delete'];
-  private dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
+   displayedColumns: string[] = ['color', 'tast', 'text', 'folder', 'date', 'delete'];
+   dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
 
 
   tables: Task[] = [];
@@ -40,7 +40,7 @@ export class TablesComponent implements OnInit {
     }
   }
 
-  updateTables():void {
+  updateTables(): void {
     if (this.tables === undefined){
       this.LoadingMessage = 'Loading ...wait 5s';
       setTimeout(() => {
@@ -57,19 +57,20 @@ export class TablesComponent implements OnInit {
   // показывает задачи с применением всех текущий условий (категория, поиск, фильтры и пр.)
   private refreshTable(): void {
     this.dataSource.data = this.tables; // обновить источник данных (т.к. данные массива tasks обновились)
+    console.log('this.dataSource', this.dataSource);
   }
 
 
   // в зависимости от статуса задачи - вернуть цвет названия
-  private getPriorityColor(task: Task) {
+  private getPriorityColor(task: Task): string {
 
     // цвет завершенной задачи
-    if (task.completed) {
+    if (task.folder === 'current') {
       return '#F8F9FA'; // TODO вынести цвета в константы (magic strings, magic numbers)
     }
 
-    if (task.priority && task.priority.color) {
-      return task.priority.color;
+    if (task.folder === 'work' ) {
+      return '#F4C5C8';
     }
 
     return '#fff'; // TODO вынести цвета в константы (magic strings, magic numbers)
