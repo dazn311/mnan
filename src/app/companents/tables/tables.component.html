@@ -6,6 +6,57 @@
       <div class="panel-heading">
         Advanced Tables
       </div>
+      <!--     text daz tab materials-->
+      <table [dataSource]="dataSource" mat-table>
+        <!--  цвет приоритета  -->
+        <ng-container matColumnDef="color">
+          <th *matHeaderCellDef mat-header-cell></th>
+          <td *matCellDef="let task" [style.background-color]="getPriorityColor(task)" class="col-color"
+              mat-cell></td>
+        </ng-container>
+
+
+        <!-- нумерация-->
+        <ng-container matColumnDef="id">
+          <th *matHeaderCellDef mat-header-cell></th>
+          <td *matCellDef="let index = index;" class="col-id" mat-cell>
+
+            {{index + 1}}
+
+          </td>
+        </ng-container>
+
+
+        <!-- название задачи-->
+        <ng-container matColumnDef="title">
+          <th *matHeaderCellDef mat-header-cell> Название</th>
+          <td *matCellDef="let task" class="col-title" mat-cell>
+
+            {{task.title}}
+
+          </td>
+        </ng-container>
+
+        <!--дата выполнения-->
+        <ng-container matColumnDef="date">
+          <th *matHeaderCellDef mat-header-cell> Срок</th>
+          <td *matCellDef="let task"
+              [ngClass]="{'greencolor': task.folder == 'work', 'bejcolor': task.folder == 'current'}"
+              class="col-date"
+              mat-cell>
+
+            {{task.date | date: "medium"}}
+
+          </td>
+        </ng-container>
+        <!--  заголовок таблицы-->
+        <tr *matHeaderRowDef="displayedColumns; " mat-header-row></tr>
+
+        <!--  строки таблицы - набор строк из тегов td (порядок указывается в переменной displayedColumns) -->
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+      </table>
+      <!--     text daz tab materials-->
       <div class="panel-body">
         <div class="table-responsive">
           <table class="table table-striped table-bordered table-hover" id="dataTables-example">
