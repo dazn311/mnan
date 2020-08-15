@@ -9,10 +9,13 @@ import {Subject} from 'rxjs';
 })
 export class DataTablesService {
   tasks: Task[];
-  loadingTask: boolean = false;
+  loadingTask = false;
   taskByCategoriesList: Task[] = [];
   taskSubject = new Subject<Task[]>();
   selectedCategorySub = new Subject<string>();
+
+  categories: Category[] = []; // Todo добавить заполнение категорий.
+
   constructor(private http: HttpClient) {
   }
 

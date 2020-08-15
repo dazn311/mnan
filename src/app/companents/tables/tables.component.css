@@ -20,7 +20,7 @@
   width: 20%;
 }
 .col-text {
-  width: 40%;
+  width: 60%;
 }
 
 .col-folder {
@@ -28,7 +28,7 @@
 }
 
 .col-date {
-  width: 10% !important;
+  width: 10%;
 }
 .col-delete {
   width: auto;
@@ -71,4 +71,8 @@
 .greencolor {
   background-color: darkolivegreen !important;
   color: white;
+}
+
+.mat-header-cell {
+  font-size: 16px;
 }
