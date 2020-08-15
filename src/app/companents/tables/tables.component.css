@@ -1,0 +1,16 @@
+.cell-height {
+  word-break: break-all;
+}
+
+.progress-bar {
+  width: 0 !important;
+}
+
+.progress-barh {
+  width: 100%;
+}
+
+.redcolor {
+  background-color: darkmagenta !important;
+  color: white;
+}

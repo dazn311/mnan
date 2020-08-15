@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="index.html"><strong><i class="icon fa fa-plane"></i> MyNotes</strong></a>
-      <div id="sideNav" href="">
+      <div (click)="sideNavVisibleToggle()" id="sideNav">
         <i class="fa fa-bars icon"></i>
       </div>
     </div>
@@ -223,12 +223,16 @@
     </ul>
   </nav>
   <!--/. NAV TOP  -->
-  <nav class="navbar-default navbar-side" role="navigation">
-  <app-categories></app-categories>
+
+  <!--/. row daz  -->
+
+  <nav [style]="{display:isSideNavCloded ?'none':'block'}" class="navbar-side" role="navigation">
+    <app-categories></app-categories>
   </nav>
   <!-- /. NAV SIDE  -->
-  <div id="page-wrapper" >
-<!--    edit page-->
+  <div [style]="{margin:isSideNavCloded ?'0px':'0 0 0 260px'}" id="page-wrapper">
+
+    <!--    edit page-->
 <div *ngIf="isEditPage; else blockTables"></div>
 <!--  end  edit page-->
     <ng-template #blockTables>
@@ -255,6 +259,9 @@
     <footer><p>All right reserved. Template by: <a href="http://monds.tech">dazn311</a></p></footer>
   </div>
   <!-- /. PAGE INNER  -->
+
+  <!-- /. end row daz  -->
+
 </div>
 
 

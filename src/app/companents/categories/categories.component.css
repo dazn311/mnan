@@ -1,3 +1,12 @@
 .hided {
   display: none;
 }
+
+.active-menu, .active-menu i {
+  background-color: #EDEDED !important;
+  color: #F36A5A !important;
+}
+
+.active-menu i {
+  color: #F36A5A !important;
+}

@@ -1,29 +1,33 @@
-<nav class="navbar-default navbar-side" role="navigation">
+
   <div class="sidebar-collapse">
     <ul class="nav" id="main-menu">
 
       <li>
-        <a href="index.html"><i class="fa fa-user-md"></i>Sign in</a>
+        <a href=""><i class="fa fa-user-md"></i>Sign in</a>
       </li>
       <li>
-        <a href="ui-elements.html"><i class="fa fa-plus-square"></i>Новая заметка</a>
+        <a href=""><i class="fa fa-plus-square"></i>Новая заметка</a>
       </li>
 
       <li>
         <a (click)="toggleVisibleFolderList()"><i class="fa fa-folder-o"></i> Folders<span class="fa arrow"></span></a>
         <ul *ngIf="isVisibleFolderList" class="nav nav-second-level">
-          <li *ngFor="let f of folders" (click)="showTaskByCategories(f)">
+          <li
+            (click)="showTaskByCategories(f)"
+            *ngFor="let f of folders"
+            [class.active-menu]="f == selectedCategory"
+
+          >
             <a >{{ f }}</a>
           </li>
         </ul>
       </li>
 <!--    все заметки-->
-      <li>
+      <li [class.active-menu]="'all' === selectedCategory">
         <a  (click)="showTaskByCategories('');" > <i class="fa fa-fw fa-list-alt"></i>Все заметки</a>
       </li>
       <li>
-        <a href="empty.html"><i class="fa fa-fw fa-clock-o"></i>Setting</a>
+        <a href=""><i class="fa fa-fw fa-clock-o"></i>Setting</a>
       </li>
     </ul>
 
-  </div>

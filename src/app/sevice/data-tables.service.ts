@@ -12,13 +12,13 @@ export class DataTablesService {
   loadingTask: boolean = false;
   taskByCategoriesList: Task[] = [];
   taskSubject = new Subject<Task[]>();
-
+  selectedCategorySub = new Subject<string>();
   constructor(private http: HttpClient) {
   }
 
-  fillTables():void {
-    this.taskSubject.next(this.tasks);
-  }
+  // fillTables(): void {
+  //   this.taskSubject.next(this.tasks);
+  // }
 
   fillTablesByCategory(category: string): void {
     if (category === ''){
@@ -27,6 +27,7 @@ export class DataTablesService {
       this.taskByCategoriesList = this.tasks.filter( c =>  c.folder === category );
     }
     console.log('this.taskByCategoriesList', this.taskByCategoriesList );
+    this.selectedCategorySub.next(category);
     this.taskSubject.next(this.taskByCategoriesList);
 
   }

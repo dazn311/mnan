@@ -11,15 +11,19 @@ export class TablesComponent implements OnInit {
   tables: Task[] = [];
   loading = false;
   LoadingMessage = 'Loading ...';
+  selectedRow = '';
+  selectedCategory = '';
+  isEditingTablesCell = false;
   constructor(public dataTableService: DataTablesService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
      this.getTables();
      this.dataTableService.taskSubject.subscribe(task => this.tables = task);
+    this.dataTableService.selectedCategorySub.subscribe(sc => this.selectedCategory = sc);
   }
 
-  getTables(){
+  getTables(): void {
     this.tables = this.dataTableService.getTables();
     if (this.tables !== undefined){
       this.loading = false;
@@ -36,9 +40,10 @@ export class TablesComponent implements OnInit {
         this.loading = false;
         this.tables = this.dataTableService.getTablesByCategory('');
         this.updateTables();
-        }, 5000);
+      }, 5000);
     }else {
       this.loading = false;
     }
-  }
-}   //  end class
+  } // end updetaTables
+}
+

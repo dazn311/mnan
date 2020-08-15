@@ -23,13 +23,18 @@
               <p>{{ LoadingMessage }}</p>
             </div>
             <ng-template #loadingBlock>
-            <tr  class="odd gradeX" *ngFor="let t of tables">
-              <td [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }">{{t.task | slice: 0: 10}}</td>
-              <td [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }">{{t.text | slice: 0:20}}</td>
-              <td [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }">{{t.folder}}</td>
-              <td class="center" [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }">{{t.date}}</td>
-              <td class="center" [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }">edit</td>
-            </tr>
+              <tr *ngFor="let t of tables" class="odd gradeX">
+                <td
+                  [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }">{{t.task | slice: 0: 10}}</td>
+                <td
+                  [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }">{{t.text | slice: 0:20}}</td>
+                <td [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }">{{t.folder}}</td>
+                <td [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }"
+                    class="center">{{t.date}}</td>
+                <td [ngClass]="{'success': (t.folder == 'current'), 'danger': (t.folder == 'work') }" class="center">
+                  edit
+                </td>
+              </tr>
             </ng-template>
             </tbody>
           </table>

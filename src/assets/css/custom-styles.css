@@ -61,34 +61,12 @@ p {
     line-height:25px;
     padding-top:20px;
 }
-.navbar-side {
-    z-index: 0;
-}
+
 .panel{
 border-radius:0;
 }
-.navbar-side .nav > li > a > i{color: #8C8C8C;padding: 8px;width: 30px;text-align: center;}
-.top-navbar{
-position: fixed;
-  width: 100%;
-  z-index: 300;
-    -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
-}
-.navbar-side {
-  z-index: 1;
-  position: fixed;
-  width: 260px;
-  top: 80px;
-}
-#page-wrapper {
-  position: relative;
-  top: 55px;
-  box-shadow: 0 0 10px #757575;
-  -moz-box-shadow: 0 0 10px #757575;
-  -webkit-box-shadow: 0 0 10px #757575;
-}
+
+
 .top-navbar .nav > li > a:hover, .top-navbar .nav > li > a:focus {text-decoration: none;background-color: #4D4D4D;color: #fff;}
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {background-color: #656565;border-color: #F36A5A;color: #fff !important;}
 .breadcrumb {
@@ -433,9 +411,7 @@ font-size: 14px;
 /*----------------------------------------------
     MENU STYLES
 ------------------------------------------------*/
-div#sideNav:hover {
-    color: #F09B22;
-}
+
 .user-image {
     margin: 25px auto;
 -webkit-border-radius: 10px;
@@ -493,11 +469,7 @@ font-size: 13px;
 line-height: 21px;
 padding-top: 4px;
 }
-.active-menu, .active-menu i {
-    background-color: #EDEDED !important;
-    color: #F36A5A !important;
-}
-.active-menu i{color: #F36A5A !important;}
+
 .arrow {
     float: right;
     margin-top: 8px;
@@ -553,10 +525,6 @@ background: #575757;
 color: #F36A5A;
 }
 
-.navbar-side {
-	border:none;
-	background: #3E3E3E;
-}
 .top-navbar {
 	background: #FFFFFF;
 	border-bottom:none;
@@ -592,18 +560,7 @@ background-color: #FFF;
   display: inline-block;
   font-weight: 500;
 }
-#sideNav{
-    float: left;
-    left: 0;
-    z-index: 3;
-    color: #868686;
-    cursor:pointer;
-    border-radius: 0;
-    width: 14px;
-    font-size: 48px;
-    line-height: 0;
-    margin: 7px 0 0 20px;
-}
+
 ul.dropdown-menu.dropdown-messages li a div {
   padding: 2px 0;
 }
@@ -634,21 +591,14 @@ line-height: 1.428571429;
     }
 
 
-    .navbar-side {
-        width: 260px;
-        z-index: 1;
-    }
-
    .navbar {
  border-radius:0;
 }
 
 }
  @media(max-width:768px) {
-	#sideNav{
-	display:none;
-}
- #page-wrapper {
+
+   #page-wrapper {
 position: relative;
 top: 93px;
  }
@@ -663,10 +613,8 @@ display: block;
 padding-top: 14px;
 font-size: 19px;
 }
-#sideNav{
-	display:none;
-}
-.panel-left {
+
+   .panel-left {
   width: 85px;
   height: 85px;
   border-radius: 100%;

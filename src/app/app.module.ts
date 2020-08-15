@@ -9,6 +9,9 @@ import { TablesComponent } from './companents/tables/tables.component';
 import { CategoriesComponent } from './companents/categories/categories.component';
 import { AuthComponent } from './companents/auth/auth.component';
 import { EditTaskComponent } from './companents/edit-task/edit-task.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { EditTaskComponent } from './companents/edit-task/edit-task.component';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

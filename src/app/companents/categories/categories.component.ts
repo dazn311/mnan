@@ -11,13 +11,15 @@ export class CategoriesComponent implements OnInit {
   tmpArr: Task[] = [];
   folders: string[] = [];
   loading = false;
-  isVisibleFolderList:boolean = false;
+  isVisibleFolderList = false;
+  selectedCategory = '';
   constructor(private dataService: DataTablesService) { }
 
   ngOnInit(): void {
     this.loadFolderList();
   }
-  loadFolderList():void{
+
+  loadFolderList(): void {
     setTimeout(() => { this.tmpArr = this.dataService.tasks;
         if (this.tmpArr.length) {
           this.tmpArr.map( item => {
@@ -30,11 +32,17 @@ export class CategoriesComponent implements OnInit {
         }
     }, 5500);}
 
-  toggleVisibleFolderList():void {
+  toggleVisibleFolderList(): void {
     this.isVisibleFolderList = !this.isVisibleFolderList;
   }
 
-  showTaskByCategories(f: string):void {
+  showTaskByCategories(f: string): void {
+    if (f === '') {
+      this.selectedCategory = 'all';
+    } else {
+      this.selectedCategory = f;
+    }
+
     this.dataService.fillTablesByCategory(f);
   }
 }
