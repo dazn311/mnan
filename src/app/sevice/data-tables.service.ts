@@ -7,7 +7,7 @@ import {Observable, Subject} from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class DataTablesService {
   tasks: Task[] = [];
-  loadingTask = false;
+  // loadingTask = false;
   taskByCategoriesList: Task[] = [];
   taskSubject = new Subject<Task[]>();
   selectedCategorySub = new Subject<string>();
@@ -17,9 +17,6 @@ export class DataTablesService {
   constructor(private http: HttpClient) {
   }
 
-  // fillTables(): void {
-  //   this.taskSubject.next(this.tasks);
-  // }
 
   fillTablesByCategory(category: string): void {
     if (category === ''){
@@ -27,7 +24,7 @@ export class DataTablesService {
     } else {
       this.taskByCategoriesList = this.tasks.filter( c =>  c.folder === category );
     }
-    console.log('this.taskByCategoriesList', this.taskByCategoriesList );
+    // console.log('this.taskByCategoriesList', this.taskByCategoriesList );
     this.selectedCategorySub.next(category);
     this.taskSubject.next(this.taskByCategoriesList);
 
@@ -38,38 +35,6 @@ export class DataTablesService {
     return this.http.get<Task[]>('http://zagotorvki.phplocal/api/index.php');
   }
 
-  // getTables(): Task[] {
-  //   this.loadingTask = true;
-  //   // tslint:disable-next-line:no-unused-expression
-  //   this.http.get<Task[]>('http://zagotorvki.phplocal/api/index.php')
-  //     .pipe()
-  //     .subscribe(respons => {
-  //       this.tasks = respons;
-  //       this.loadingTask = false;
-  //       console.log('respons', respons);
-  //     });
-  //   return this.tasks;
-  // }
-
-  // getTables(): Task[] {
-  //   this.loadingTask = true;
-  //   // tslint:disable-next-line:no-unused-expression
-  //   fetch('http://zagotorvki.phplocal/api/index.php')
-  //      .then( respons => respons.json())
-  //      .then(resJson => this.tasks = resJson)
-  //     .catch(error => console.log('error', error));
-  //   return this.tasks;
-  // }
-
-  getTablesByCategory(category: string): Task[] {
-    if (category === ''){
-      return this.tasks;
-    }
-    this.taskByCategoriesList = this.tasks.filter( c =>  c.folder === category );
-    console.log('this.taskByCategoriesList', this.taskByCategoriesList );
-    return this.taskByCategoriesList;
-
-  }
 
 
 }
