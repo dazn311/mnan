@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Task} from '../model/Task';
 import {Category} from '../model/Category';
-import {Observable, Subject} from 'rxjs';
+import {Observable, Subject, throwError} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class DataTablesService {
@@ -32,9 +33,23 @@ export class DataTablesService {
 
   // 16.08.20
   fetchTables(): Observable<Task[]> {
-    return this.http.get<Task[]>('http://zagotorvki.phplocal/api/index.php');
+    let params = new HttpParams();
+    params = params.append('limit', '50');
+    return this.http.get<Task[]>('http://zagotorvki.phplocal/api/index.php', {
+      params,
+      observe: 'response'
+    })
+      .pipe(map(response => {
+        return response.body;
+      }), catchError(err => {
+        console.log('fetch error', err.message);
+        return throwError(err);
+      }));
   }
 
-
+  // fetchTablesOld(): Promise<any> {
+  //   return fetch('http://zagotorvki.phplocal/api/index.php');
+  //
+  // }
 
 }

@@ -21,6 +21,7 @@ export class TablesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, {static: false}) private sort: MatSort;
   loading = false;
   LoadingMessage = 'Loading ...';
+  errorFetch = '';
   selectedRow = '';
   selectedCategory = '';
   isEditingTablesCell = false;
@@ -35,9 +36,19 @@ export class TablesComponent implements OnInit, AfterViewInit {
     this.loading = true;
     this.dataTableService.fetchTables()
       .subscribe(tasksRes => {
-        this.addTableObjects(tasksRes);
-        this.loading = false;
-        this.addDataToLocalDB(tasksRes);
+        if (tasksRes == null) {
+          this.errorFetch = 'Error: not loading from DB';
+        } else {
+          this.addTableObjects(tasksRes);
+          this.loading = false;
+          this.addDataToLocalDB(tasksRes);
+        }
+        console.log('completed fetch tasksRes', tasksRes);
+      }, error => {
+        this.errorFetch = error.message;
+        console.log('error.message fetch', this.errorFetch);
+      }, () => {
+        console.log('completed fetch');
       });
   }
 

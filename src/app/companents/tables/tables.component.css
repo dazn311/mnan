@@ -76,3 +76,8 @@
 .mat-header-cell {
   font-size: 16px;
 }
+
+.error {
+  color: red;
+  background-color: yellowgreen;
+}
