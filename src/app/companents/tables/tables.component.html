@@ -10,11 +10,10 @@
 
       <!--     text daz tab materials-->
       <div class="panel-body">
-        <div *ngIf="loading; else loadingBlock">
+        <div [hidden]="!loading">
           <p>{{ LoadingMessage }}</p>
         </div>
-        <ng-template #loadingBlock>
-          <div class="table-responsive">
+        <div [hidden]="loading" class="table-responsive">
             <table [dataSource]="dataSource" class="table table-striped table-bordered table-hover" mat-table matSort>
               <!--  цвет приоритета  -->
               <ng-container matColumnDef="color">
@@ -81,9 +80,8 @@
               <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 
             </table>
-            <mat-paginator [pageSizeOptions]="[3, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
           </div>
-        </ng-template>
       </div>
     </div>
     <!--End Advanced Tables -->

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Task} from '../model/Task';
 import {Category} from '../model/Category';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class DataTablesService {
@@ -33,18 +33,23 @@ export class DataTablesService {
 
   }
 
-  getTables(): Task[] {
-    this.loadingTask = true;
-    // tslint:disable-next-line:no-unused-expression
-    this.http.get<Task[]>('http://zagotorvki.phplocal/api/index.php')
-      .pipe()
-      .subscribe(respons => {
-        this.tasks = respons;
-        this.loadingTask = false;
-        console.log('respons', respons);
-      });
-    return this.tasks;
+  // 16.08.20
+  fetchTables(): Observable<Task[]> {
+    return this.http.get<Task[]>('http://zagotorvki.phplocal/api/index.php');
   }
+
+  // getTables(): Task[] {
+  //   this.loadingTask = true;
+  //   // tslint:disable-next-line:no-unused-expression
+  //   this.http.get<Task[]>('http://zagotorvki.phplocal/api/index.php')
+  //     .pipe()
+  //     .subscribe(respons => {
+  //       this.tasks = respons;
+  //       this.loadingTask = false;
+  //       console.log('respons', respons);
+  //     });
+  //   return this.tasks;
+  // }
 
   // getTables(): Task[] {
   //   this.loadingTask = true;

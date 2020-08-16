@@ -14,7 +14,7 @@ export class TablesComponent implements OnInit, AfterViewInit {
   // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
    displayedColumns: string[] = ['color', 'tast', 'text', 'folder', 'date', 'delete'];
    dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
-  @Input()
+
   tables: Task[] = [];
   // ссылки на компаненты в таблице
   @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator;
@@ -28,53 +28,66 @@ export class TablesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.fetchTables();
+  }
 
-    this.getTables(); // Todo перенести функцию в компанент логин
-    // this.dataTableService.taskSubject.subscribe(tasks => this.tables = tasks);
-    this.dataTableService.taskSubject.subscribe(tasks => this.dataSource.data = tasks);
-    this.dataTableService.selectedCategorySub.subscribe(sc => this.selectedCategory = sc);
-
+  fetchTables(): void {
+    this.loading = true;
+    this.dataTableService.fetchTables()
+      .subscribe(tasksRes => {
+        this.addTableObjects(tasksRes);
+        this.loading = false;
+        this.addDataToLocalDB(tasksRes);
+      });
   }
 
   ngAfterViewInit(): void {
-    this.dataSource = new MatTableDataSource();
-
-    this.addTableObjects();
+    this.dataTableService.selectedCategorySub.subscribe(sc => {
+      this.selectedCategory = sc;
+      this.dataSource.data = this.dataTableService.taskByCategoriesList;
+    });
   }
 
-  private addTableObjects(): void {
+  addDataToLocalDB(tasksRes): void {
+    this.dataTableService.tasks = tasksRes;
+    this.dataTableService.fillTablesByCategory('');
+  }
+
+  private addTableObjects(tasksRes): void {
+    this.dataSource = new MatTableDataSource(tasksRes);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
-  getTables(): void {
-    this.tables = this.dataTableService.getTables();
-    if (this.tables.length > 0) {
-      this.loading = false;
-    } else {
-      this.loading = true;
-      this.updateTables();
-    }
-  }
 
-  updateTables(): void {
-    if (this.tables.length == 0) {
-      this.LoadingMessage = 'Loading ...wait 5s';
-      setTimeout(() => {
-        this.loading = false;
-        this.tables = this.dataTableService.getTablesByCategory('');
-        this.refreshTable();
-        this.updateTables();
-      }, 5000);
-    }else {
-      this.loading = false;
-    }
-  } // end updetaTables
+  // getTables(): void {
+  //   this.tables = this.dataTableService.getTables();
+  //   if (this.tables.length > 0) {
+  //     this.loading = false;
+  //   } else {
+  //     this.loading = true;
+  //     this.updateTables();
+  //   }
+  // }
+  //
+  // updateTables(): void {
+  //   if (this.tables.length === 0) {
+  //     this.LoadingMessage = 'Loading ...wait 5s';
+  //     setTimeout(() => {
+  //       this.loading = false;
+  //       this.tables = this.dataTableService.getTablesByCategory('');
+  //       this.refreshTable();
+  //       this.updateTables();
+  //     }, 5000);
+  //   }else {
+  //     this.loading = false;
+  //   }
+  // } // end updetaTables
 
   // показывает задачи с применением всех текущий условий (категория, поиск, фильтры и пр.)
   private refreshTable(): void {
     this.dataSource.data = this.tables; // обновить источник данных (т.к. данные массива tasks обновились)
     console.log('this.dataSource', this.dataSource);
-    this.addTableObjects();
+    // this.addTableObjects();
 
     this.dataSource.sortingDataAccessor = (task, colName) => {
       console.log('colName', colName);
