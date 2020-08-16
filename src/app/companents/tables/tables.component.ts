@@ -29,7 +29,7 @@ export class TablesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    this.getTables();
+    this.getTables(); // Todo перенести функцию в компанент логин
     // this.dataTableService.taskSubject.subscribe(tasks => this.tables = tasks);
     this.dataTableService.taskSubject.subscribe(tasks => this.dataSource.data = tasks);
     this.dataTableService.selectedCategorySub.subscribe(sc => this.selectedCategory = sc);
@@ -48,7 +48,7 @@ export class TablesComponent implements OnInit, AfterViewInit {
   }
   getTables(): void {
     this.tables = this.dataTableService.getTables();
-    if (this.tables !== undefined){
+    if (this.tables.length > 0) {
       this.loading = false;
     } else {
       this.loading = true;
@@ -57,7 +57,7 @@ export class TablesComponent implements OnInit, AfterViewInit {
   }
 
   updateTables(): void {
-    if (this.tables === undefined){
+    if (this.tables.length == 0) {
       this.LoadingMessage = 'Loading ...wait 5s';
       setTimeout(() => {
         this.loading = false;

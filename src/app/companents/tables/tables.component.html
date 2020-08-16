@@ -28,7 +28,7 @@
                 <th *matHeaderCellDef mat-header-cell mat-sort-header>Название</th>
                 <td *matCellDef="let task" class="col-task" mat-cell>
 
-                  {{task.task}}
+                  {{task.task | titlecase}}
 
                 </td>
               </ng-container>
