@@ -1,0 +1,33 @@
+<div class="col-xs-12">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="card-title">
+        <div class="title">Form Elements</div>
+      </div>
+    </div>
+    <div class="panel-body">
+
+      <div class="sub-title">Input</div>
+      <div>
+        <input [value]="tastNew ? tastNew.task : 'no data'" class="form-control" placeholder="Text input" type="text">
+      </div>
+      <div class="sub-title">Textarea</div>
+      <div>
+        <textarea [value]="tastNew ? tastNew.text: 'no text' " class="form-control" rows="3"></textarea>
+      </div>
+      <div class="checkbox">
+        <div class="checkbox3 checkbox-round">
+          <input id="checkbox-1" type="checkbox">
+          <label for="checkbox-1">
+            Check me out
+          </label>
+        </div>
+      </div>
+      <button class="btn btn-default" type="submit">Submit</button>
+
+    </div>
+  </div>
+</div>
+
+<!-- /. PAGE INNER  -->
+

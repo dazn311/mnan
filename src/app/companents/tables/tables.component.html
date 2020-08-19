@@ -67,9 +67,13 @@
               <!--  цвет приоритета  -->
               <ng-container matColumnDef="delete">
                 <th *matHeaderCellDef mat-header-cell></th>
-                <td *matCellDef="let task" [style.background-color]="getPriorityColor(task)" class="col-delete"
+                <td
+                  *matCellDef="let task"
+                  [routerLink]="['/tab', task.id]"
+                  [style.background-color]="getPriorityColor(task)"
+                  class="col-delete"
                     mat-cell>
-                  del
+                  ред
                 </td>
               </ng-container>
 

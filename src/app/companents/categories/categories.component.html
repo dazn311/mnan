@@ -13,10 +13,9 @@
         <a (click)="toggleVisibleFolderList()"><i class="fa fa-folder-o"></i> Folders<span class="fa arrow"></span></a>
         <ul *ngIf="isVisibleFolderList" class="nav nav-second-level">
           <li
-            (click)="showTaskByCategories(f)"
             *ngFor="let f of folders"
             [class.active-menu]="f == selectedCategory"
-
+            (click)="showTaskByCategories(f)"
           >
             <a >{{ f }}</a>
           </li>
@@ -24,7 +23,7 @@
       </li>
 <!--    все заметки-->
       <li [class.active-menu]="'all' === selectedCategory">
-        <a  (click)="showTaskByCategories('');" > <i class="fa fa-fw fa-list-alt"></i>Все заметки</a>
+        <a (click)="showTaskByCategories('')"> <i class="fa fa-fw fa-list-alt"></i>Все заметки</a>
       </li>
       <li>
         <a href=""><i class="fa fa-fw fa-clock-o"></i>Setting</a>

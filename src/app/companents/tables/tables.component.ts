@@ -53,10 +53,7 @@ export class TablesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.dataTableService.selectedCategorySub.subscribe(sc => {
-      this.selectedCategory = sc;
-      this.dataSource.data = this.dataTableService.taskByCategoriesList;
-    });
+    this.dataTableService.taskSubject.subscribe(t => this.dataSource.data = t);
   }
 
   addDataToLocalDB(tasksRes): void {

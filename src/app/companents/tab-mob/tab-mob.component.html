@@ -1,0 +1,92 @@
+<div class="row">
+  <!--  tabs elements-->
+  <div class="col-md-12">
+    <div class="list-group">
+      <a (click)="setCurrTask(t)" *ngFor="let t of tables"
+         class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between" style="font-size: large; padding: 3px 15px;">
+          {{t.task | slice: 0: 50}}
+        </div>
+        <div class="mb-1">
+          <quill-view [content]="t.text" format="html"></quill-view>
+
+        </div>
+        <p class="p-time">{{t.folder}} <small>{{t.date}}</small></p>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!--  modal view-->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Edit Element
+  </div>
+
+  <div [class.in]="showModal" [style.display]="showModal ? 'block' : 'none'" aria-hidden="false"
+       aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog"
+       tabindex="-1">
+    <div class="modal-dialog">
+      <form (ngSubmit)="setChangeTask()" [formGroup]="form" class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">{{modalStatusTitle}}</h4>
+        </div>
+        <div class="modal-body">
+          <!--          <div class="sub-title">Заголовок</div>-->
+          <div>
+            <input [value]="modalStatus != 'create' ? currentTask.task : ''"
+                   class="form-control"
+                   formControlName="inTask"
+                   placeholder="Text input" type="text">
+          </div>
+
+          <!--          просмотр заметки-->
+          <div [class.hidden]="modalStatus != 'view'" style="border-width: 0;">
+            <quill-view [innerHTML]="currentTask.text">
+            </quill-view>
+          </div>
+
+          <textarea
+            [class.hidden]="modalStatus != 'edit'" [value]="currentTask.text" class="form-control"
+            formControlName="inText"
+            rows="3"></textarea>
+          <div
+            [class.hidden]="modalStatus != 'create'"
+            class="ql-container ql-snow"
+            style="border-width: 0;">
+            <quill-editor formControlName="newText"></quill-editor>
+          </div>
+
+
+        </div>
+
+
+        <div class="radiobuttons">
+          <div class="form-check form-check-inline">
+            <input (change)="toggleRadio('view')" checked class="form-check-input" id="inlineRadio1"
+                   name="inlineRadioOptions" type="radio" value="option1">
+            <label class="form-check-label" for="inlineRadio1">view</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input (change)="toggleRadio('edit')" class="form-check-input" id="inlineRadio2" name="inlineRadioOptions"
+                   type="radio" value="option2">
+            <label class="form-check-label" for="inlineRadio2">edit</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input (change)="toggleRadio('create')" class="form-check-input" id="inlineRadio3" name="inlineRadioOptions"
+                   type="radio" value="option3">
+            <label class="form-check-label" for="inlineRadio3">create new</label>
+          </div>
+        </div>
+
+
+        <div class="modal-footer">
+          <button (click)="clockModal()" class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+          <button [class.hidden]="modalStatus == 'view'" class="btn btn-primary"
+                  type="submit">{{ modalStatus == 'edit' ? 'Сохранить' : 'Добавить'}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

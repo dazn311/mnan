@@ -3,14 +3,17 @@ Author : www.monds.tech
 License: daz
 http://ddd.com
 ------------------------------------------------*/
+:root {
+  --primary-color: #dc3545;
+  --dark-color: #333333;
+  --light-color: #f4f5f4;
+  --success-color: #28a745;
+}
 body {
   font-family: 'Open Sans', sans-serif;
   background: #3E3E3E;
 }
 
-#wrapper {
-  width: 100%;
-}
 
 #page-wrapper {
   padding: 15px 15px;
@@ -56,28 +59,21 @@ p {
   line-height:25px;
   padding-top:20px;
 }
-.navbar-side {
-  z-index: 0;
-}
+
 .panel{
   border-radius: 0;
 }
 .navbar-side .nav > li > a > i{color: #8C8C8C;padding: 8px;width: 30px;text-align: center;}
 .top-navbar{
   position: fixed;
+  top: 0;
   width: 100%;
   z-index: 300;
   -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
 }
-.navbar-side {
-  z-index: 1;
-  position: fixed;
-  width: 260px;
-  top: 80px;
-  background: #3E3E3E;
-}
+
 
 #page-wrapper {
   position: relative;
@@ -424,11 +420,18 @@ i.fa.fa-bars:hover {
 .chat-img>img {
   margin-left:20px;
 }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 98%;
+  left: 1%;
+}
 footer p{
   font-size: 14px;
 }
 /*----------------------------------------------
-    MENU STYLES
+MENU STYLES
 ------------------------------------------------*/
 div#sideNav:hover {
   color: #F09B22;
@@ -550,10 +553,7 @@ ul.nav.nav-second-level.collapse.in {background: #131212;}
   color: #F36A5A;
 }
 
-.navbar-side {
-  border:none;
-  background: #3E3E3E;
-}
+
 .top-navbar {
   background: #FFFFFF;
   border-bottom:none;
@@ -687,7 +687,21 @@ ul.dropdown-menu.dropdown-messages li a div {
   }
 }
 
-
 .navbar-side {
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 80px;
   background: #3E3E3E;
+}
+
+
+/*daz css*/
+.menuActive {
+  background-color: aliceblue;
+}
+
+#page-wrapper2 {
+  margin: 0;
 }

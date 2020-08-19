@@ -5,13 +5,23 @@ import {Category} from '../model/Category';
 import {Observable, Subject, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 
+export type TaskIn = {
+  id: number,
+  task: string,
+  text: string,
+  date: number,
+  folder: string,
+  user_id: number
+};
+
+
 @Injectable({providedIn: 'root'})
 export class DataTablesService {
+  isMobile = false;
   tasks: Task[] = [];
-  // loadingTask = false;
-  taskByCategoriesList: Task[] = [];
   taskSubject = new Subject<Task[]>();
   selectedCategorySub = new Subject<string>();
+  currentTask: Task;
 
   categories: Category[] = []; // Todo добавить заполнение категорий.
 
@@ -21,13 +31,10 @@ export class DataTablesService {
 
   fillTablesByCategory(category: string): void {
     if (category === ''){
-      this.taskByCategoriesList = this.tasks;
+      this.taskSubject.next(this.tasks);
     } else {
-      this.taskByCategoriesList = this.tasks.filter( c =>  c.folder === category );
+      this.taskSubject.next(this.tasks.filter(c => c.folder === category));
     }
-    // console.log('this.taskByCategoriesList', this.taskByCategoriesList );
-    this.selectedCategorySub.next(category);
-    this.taskSubject.next(this.taskByCategoriesList);
 
   }
 
@@ -47,9 +54,39 @@ export class DataTablesService {
       }));
   }
 
-  // fetchTablesOld(): Promise<any> {
-  //   return fetch('http://zagotorvki.phplocal/api/index.php');
-  //
-  // }
+  putChangeTaskToDB(t: Task, method: string): Observable<any> {
+    let params = new HttpParams();
+
+    params = params.append('method', method);
+    params = params.append('id', t.id.toString());
+    params = params.append('task', t.task);
+    params = params.append('text', t.text);
+    params = params.append('folder', t.folder);
+    return this.http.get('http://zagotorvki.phplocal/api/index.php', {
+      params
+    });
+  }
+
+  updateLocalData(task: Task): void {
+    const newTask = this.tasks.map(t => {
+      if (t.id == task.id) {
+        return t = task;
+      }
+      return t;
+    });
+    this.taskSubject.next(newTask);
+    this.tasks = newTask;
+  }
+
+
+  getTabByID(id: number): Task[] {
+    return this.tasks.filter(task => task.id === +id);
+
+  }
+
+  detectMob(): void {
+    this.isMobile = ((window.innerWidth <= 450) && (window.innerHeight <= 860));
+  }
+
 
 }

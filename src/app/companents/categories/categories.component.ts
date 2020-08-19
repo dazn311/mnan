@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Task} from '../../model/Task';
 import {DataTablesService} from '../../sevice/data-tables.service';
+
 
 @Component({
   selector: 'app-categories',
@@ -8,6 +9,8 @@ import {DataTablesService} from '../../sevice/data-tables.service';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
+  @Output() leftMenu = new EventEmitter<boolean>();
+
   tmpArr: Task[] = [];
   folders: string[] = [];
   loading = false;
@@ -16,7 +19,7 @@ export class CategoriesComponent implements OnInit {
   constructor(private dataService: DataTablesService) { }
 
   ngOnInit(): void {
-    this.dataService.taskSubject.subscribe(tasks => this.loadFolderList(tasks)); // this.dataSource.data = tasks);
+    this.dataService.taskSubject.subscribe(tasks => this.loadFolderList(tasks));
     this.dataService.selectedCategorySub.subscribe(sc => this.selectedCategory = sc);
 
     this.loadFolderList(this.tmpArr);
@@ -38,21 +41,10 @@ export class CategoriesComponent implements OnInit {
 
   }
 
-  // loadFolderList(): void {
-  //   setTimeout(() => { this.tmpArr = this.dataService.tasks;
-  //        if (this.tmpArr.length) {
-  //         this.tmpArr.map( item => {
-  //           if (item.folder !== '' && !this.folders.includes(item.folder)) {
-  //             this.folders.push(item.folder);
-  //           }
-  //         });
-  //       }else {
-  //         this.loadFolderList();
-  //       }
-  //   }, 5500);
-  // }
+
 
   toggleVisibleFolderList(): void {
+    console.log('toggleVisibleFolderList');
     this.isVisibleFolderList = !this.isVisibleFolderList;
   }
 
@@ -62,8 +54,9 @@ export class CategoriesComponent implements OnInit {
     } else {
       this.selectedCategory = f;
     }
-
+    console.log('showTaskByCategories f:', f);
     this.dataService.fillTablesByCategory(f);
+    this.leftMenu.emit(false);
   }
 
 

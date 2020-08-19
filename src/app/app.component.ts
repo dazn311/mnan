@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {DataTablesService} from './sevice/data-tables.service';
 
 @Component({
   selector: 'app-root',
@@ -7,18 +8,15 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit{
   title = 'mnan';
-  isEditPage: boolean = false;
   isSideNavCloded = true;
 
-  constructor() {}
+  constructor(private dataTabServer: DataTablesService) {
+  }
 
 
   ngOnInit(): void {
-
+    this.dataTabServer.detectMob();
   }
 
 
-  sideNavVisibleToggle() {
-    this.isSideNavCloded = !this.isSideNavCloded;
-  }
 }
